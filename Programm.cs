@@ -31,12 +31,12 @@ namespace ConsoleApp
 
             Console.WriteLine();
 
-            Console.WriteLine(reader.takeBook(2, "Книга 1, Книга 2"));
+            Console.WriteLine(reader.takeBook(2, "Книга 1", "Книга 2", "Книга 3", "Книга 4", "Книга 5"));
             Console.WriteLine(reader.returnBook());
 
             Console.WriteLine();
 
-            Console.WriteLine(reader.takeBook("Книга 1, Книга 2"));
+            Console.WriteLine(reader.takeBook("Книга 1", "Книга 2", "Книга 3"));
             Console.WriteLine(reader.returnBook());
         }
     }
@@ -96,7 +96,7 @@ namespace LibraryNameSpace
     class Reader
     {
         private string fullName;
-        private string takeBookName;
+        private string[] takeBookName;
         public Reader(string fullName)
         {
             this.fullName = fullName;
@@ -105,15 +105,15 @@ namespace LibraryNameSpace
         {
             return $"{fullName} взял {takeBookNum} книг";
         }
-        public string takeBook(byte takeBookNum, string takeBookName)
+        public string takeBook(byte takeBookNum, params string[] takeBookName)
         {
             this.takeBookName = takeBookName;
-            return $"{fullName} взял {takeBookNum} книг: {takeBookName}";
+            return $"{fullName} взял {takeBookNum} книг: {string.Join(",",takeBookName)}";
         }
-        public string takeBook(string takeBookName)
+        public string takeBook(params string[] takeBookName)
         {
             this.takeBookName = takeBookName;
-            return $"{fullName} взял: {takeBookName}";
+            return $"{fullName} взял: {string.Join(",", takeBookName)}";
         }
         public string returnBook(byte takeBookNum)
         {
@@ -121,8 +121,7 @@ namespace LibraryNameSpace
         }
         public string returnBook()
         {
-            return $"{fullName} вернул: {takeBookName}";
+            return $"{fullName} вернул: {string.Join(", ", takeBookName)}";
         }
     }
 }
-
